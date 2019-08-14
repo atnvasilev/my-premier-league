@@ -78,6 +78,7 @@ export default {
       .then(data => {
         this.data = data;
       })
+      .then(() => this.$emit("ready"));
   }
 };
 </script>

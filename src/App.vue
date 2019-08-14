@@ -1,17 +1,35 @@
 <template>
   <div id="app">
     <TheHeader />
-    <router-view />
+    <router-view v-show="showPage" @ready="pageReady" />
+    <AppLoading v-show="!showPage" />
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader";
-
+import AppLoading from "./components/AppLoading";
 export default {
   name: "app",
   components: {
-    TheHeader
+    TheHeader,
+    AppLoading
+  },
+  data() {
+    return {
+      showPage: false
+    };
+  },
+  methods: {
+    pageReady() {
+      this.showPage = true;
+    }
+  },
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      this.showPage = false;
+      next();
+    });
   }
 };
 </script>

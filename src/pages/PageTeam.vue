@@ -8,6 +8,9 @@ export default {
     return {
       id: this.$route.params.id
     };
+  },
+  created() {
+    this.$emit("ready");
   }
 };
 </script>

@@ -53,7 +53,7 @@ export default {
       let forthcoming = this.matches.filter(item => {
         return item.match_status !== "Finished";
       });
-      
+
       return this.groupBy(forthcoming, "match_date");
     }
   },
@@ -65,6 +65,7 @@ export default {
       .then(data => {
         this.matches = data;
       })
+      .then(() => this.$emit("ready"));
   }
 };
 </script>

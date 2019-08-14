@@ -36,7 +36,10 @@
 <script>
 
 export default {
-	name: 'login-page',
+    name: 'login-page',
+    created(){
+		this.$emit('ready')
+	}
 }
 </script>
 
