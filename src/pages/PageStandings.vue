@@ -27,6 +27,7 @@
             tag="tr"
             v-for="(teams, index) in data"
             :key="teams.team_id"
+            class="ranking-team"
           >
             <td
               v-if="index==0 || index==1 || index==2 || index==3"
@@ -103,7 +104,9 @@ export default {
 .data-table th {
   padding: 12px;
 }
-
+.ranking-team{
+  cursor:pointer
+}
 .data-table tr + tr {
   border-top: 1px solid #ddd;
 }

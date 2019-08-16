@@ -35,6 +35,7 @@ export default {
 .header__logo {
   text-transform: uppercase;
   font-size: 20px;
+  border: 0px !important;
 }
 
 .header__logo a {

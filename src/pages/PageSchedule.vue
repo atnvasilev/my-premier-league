@@ -2,11 +2,11 @@
   <div class="schedule container container--tall container--max-width">
     <div class="filters">
       <ul class="radio-list">
-        <li class="radio-list__item--active">
+        <li @click="activate(1)" class="radio-list__item" :class="{active:active_el == 1}">
           <a @click="showFinishedMatches = false" class="radio-list__link">Предстоящи</a>
         </li>
 
-        <li class="radio-list__item">
+        <li @click="activate(2)" class="radio-list__item" :class="{active:active_el == 2}">
           <a @click="showFinishedMatches = true" class="radio-list__link">Изминали</a>
         </li>
       </ul>
@@ -27,7 +27,8 @@ export default {
     return {
       matches: [],
       teams: [],
-      showFinishedMatches: false
+      showFinishedMatches: false,
+      active_el: 1
     };
   },
   methods: {
@@ -40,7 +41,10 @@ export default {
         result[item[key]].push(item);
       });
       return result;
-    }
+    },
+    activate:function(el){
+        this.active_el = el;
+    },
   },
   computed: {
     finishedMatches() {
@@ -99,20 +103,18 @@ export default {
   display: block;
   padding: 12px 24px;
   color: #3498db;
+  cursor: pointer;
 }
 
 .radio-list__item + .radio-list__item {
   border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
-
-.radio-list__item--active {
-  background: #3498db;
+.active a{
+   color: #fff;
 }
-
-.radio-list__item--active a {
-  color: #fff;
+.active{
+ background: #3498db;
 }
-
 .schedule_day {
   font-weight: 700;
   padding-bottom: 12px;
@@ -128,19 +130,6 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.12);
   text-transform: uppercase;
 }
-
-.schedule__result-score {
-  font-weight: 700;
-  display: inline-block;
-  min-width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  border-radius: 100%;
-  background: #3498db;
-  color: #fff;
-}
-
 .match__time {
   display: inline-block;
   width: 100%;
@@ -154,11 +143,6 @@ export default {
   float: left;
   text-align: left;
   opacity: 0.64;
-}
-
-.schedule__day-match {
-  display: inline-block;
-  text-align: center;
 }
 
 .schedule__day-matches {

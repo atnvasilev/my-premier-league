@@ -4,6 +4,7 @@ import Schedule from "./pages/PageSchedule";
 import Login from "./pages/PageLogin";
 import Standings from "./pages/PageStandings";
 import Team from "./pages/PageTeam";
+import NotFound from "./pages/PageNotFound";
 Vue.use(Router);
 
 const router = new Router({
@@ -11,6 +12,11 @@ const router = new Router({
     {
       path: "/",
       name: "Schedule",
+      component: Schedule
+    },
+    {
+      path: "/home",
+      name: "Home",
       component: Schedule
     },
     {
@@ -27,6 +33,11 @@ const router = new Router({
       path: "/team/:id",
       name: "Team",
       component: Team
+    },
+    {
+      path: "*",
+      name: "NotFound",
+      component: NotFound
     }
   ],
 
