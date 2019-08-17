@@ -4,20 +4,26 @@
       <span class="match__date">{{index}}</span>
       <div v-for="(el, elKey) in schedule" :key="elKey" class="schedule__day-title">
         <span class="match__time">{{el.match_time}}</span>
-        <div class="schedule__day-matches">
+        <router-link
+            :to="{name: 'Statistics', params: {id: el.match_id }}"
+            tag="div"
+            class="schedule__day-matches"
+        >
+        <!-- <div class="schedule__day-matches"> -->
           <div class="schedule__day-match">
             <span>{{el.match_hometeam_name}}</span>
             <span class="schedule__result-score home__team-score">
               {{ el.match_hometeam_score !== '' ? el.match_hometeam_score : 0}} 
               </span>
-          </div> - 
-          <div class="schedule__day-match">
+          </div>
+          <div class="schedule__day-match-away">
             <span class="schedule__result-score"> 
               {{ el.match_awayteam_score !== '' ? el.match_awayteam_score : 0}}
             </span>
             <span class="schedyle__result-away">{{el.match_awayteam_name}}</span>
           </div>
-        </div>
+        <!-- </div> -->
+        </router-link>
       </div>
     </div>
   </div>
@@ -41,7 +47,15 @@ export default {
 
 .schedule__day-match {
   display: inline-block;
-  text-align: center;
+  text-align: right;
+  width: 250px;
+}
+.schedule__day-match-away{
+  display: inline-block;
+  text-align: left;
+  width: 250px;
+  position: relative;
+  left: 10px;
 }
 .schedyle__result-away{
   padding-left:5px;

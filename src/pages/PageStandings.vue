@@ -121,7 +121,7 @@ export default {
 }
 
 .table-scroll {
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .current-user {

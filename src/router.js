@@ -4,6 +4,7 @@ import Schedule from "./pages/PageSchedule";
 import Login from "./pages/PageLogin";
 import Standings from "./pages/PageStandings";
 import Team from "./pages/PageTeam";
+import Statistics from "./pages/PageMatchStatistics";
 import NotFound from "./pages/PageNotFound";
 Vue.use(Router);
 
@@ -33,6 +34,11 @@ const router = new Router({
       path: "/team/:id",
       name: "Team",
       component: Team
+    },
+    {
+      path: "/match/:id",
+      name: "Statistics",
+      component: Statistics
     },
     {
       path: "*",

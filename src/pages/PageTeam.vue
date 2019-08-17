@@ -8,10 +8,10 @@
         </div>
       </div>
       <div class="data-team__container">
-        <div class="data-team__headings">#</div>
-        <div class="data-team__headings_name">Име</div>
-        <div class="data-team__headings">Години</div>
-        <div class="data-team__headings">Мачове</div>
+        <div class="data-team__headings"><div class="team_info_number">#</div></div>
+        <div class="data-team__headings_name"><div class="team_info_name">Име</div></div>
+        <div class="data-team__headings"><div class="team_info_age">Години</div></div>
+        <div class="data-team__headings tshirt"><img src="../assets/tshirt.png"></div>
         <div class="data-team__headings football-ball"><img src="../assets/football_ball.png"></div>
         <div class="data-team__headings yellow"><div class="yellow-cards"></div></div>
         <div class="data-team__headings red"><div class="red-cards"></div></div>
@@ -62,7 +62,7 @@ export default {
   },
   beforeCreate() {
     fetch(
-      "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id="+this.$route.params.id+"&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229"
+      "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id="+this.$route.params.id+"&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229" 
     )
     .then(response => response.json())
     .then(data => {
@@ -88,6 +88,18 @@ export default {
   justify-content: center;
   margin-left:25px
 }
+.team_info_number{
+  position: relative;
+  bottom: 5px;
+}
+.team_info_age{
+  position: relative;
+  bottom: 5px;
+}
+.team_info_name{
+  position: relative;
+  bottom: 5px;
+}
 .data-team__teamLogo{
   width: 100px;
   height: 100px;
@@ -106,6 +118,10 @@ export default {
 .red {
   position: relative;
   bottom: 6px;
+}
+.tshirt{
+  position: relative;
+  bottom: 10px;
 }
 .red-cards{
   background-color: red;
@@ -185,6 +201,6 @@ export default {
   display: inline-block;
   margin-top:20px;
   position: relative;
-  top: 5px;
+  top: 14px;
 }
 </style>

@@ -119,7 +119,7 @@ export default {
   font-weight: 700;
   padding-bottom: 12px;
   font-size: 16px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  /* border-bottom: 2px solid rgba(0, 0, 0, 0.12); */
   text-transform: uppercase;
 }
 
@@ -127,22 +127,30 @@ export default {
   font-weight: 700;
   padding-bottom: 12px;
   font-size: 16px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  /* border-bottom: 2px solid rgba(0, 0, 0, 0.12); */
   text-transform: uppercase;
 }
+.schedule__day-title:hover {
+    background-color: rgba(0,0,0,.03);
+}
 .match__time {
-  display: inline-block;
-  width: 100%;
-  float: left;
-  text-align: left;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    top: 23px;
+    opacity: .64;
+    font-weight: 100;
 }
 
 .match__date {
   display: inline-block;
   width: 100%;
-  float: left;
   text-align: left;
-  opacity: 0.64;
+  font-size: 18px;
+  border-bottom: 2px solid rgba(0,0,0,.12);
+  opacity: .75;
+  padding:10px 0px 10px 0px;
 }
 
 .schedule__day-matches {
