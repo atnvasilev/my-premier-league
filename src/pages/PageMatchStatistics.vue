@@ -49,15 +49,8 @@ export default {
         .then(response => response.json())
         .then(data => {
             /* eslint-disable */
-            console.log(this.$route);
             this.data = data[this.$route.params.id]["statistics"];  
         })
-    },
-    
-    computed: {
-        teamStatsWidth(){
-            console.log(this.data);
-        }
     }
 }
 </script>

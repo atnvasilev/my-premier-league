@@ -1,24 +1,46 @@
 <template>
-<div class="container container--tall container--max-width">
+  <div class="container container--tall container--max-width">
     <div class="table-scroll">
       <div>
-        <div class="data-team__teamLogo" v-bind:style="{ backgroundImage: 'url(' + teamImage + ')' }"></div>
+        <div
+          class="data-team__teamLogo"
+          v-bind:style="{ backgroundImage: 'url(' + teamImage + ')' }"
+        ></div>
         <div class="data-team__teamName">
           <div class="data-team__teamText">{{teams.team_name}}</div>
         </div>
       </div>
-
-
-      <input type='search' class="search__team" placeholder="Търсене на отбор" v-model="searchItem">
-      
+      <div>
+        <input
+          type="search"
+          class="search__team"
+          placeholder="Търсене на отбор"
+          v-model="searchPlayer"
+        />
+        <!-- <div>{{filteredPlayers}}</div> -->
+      </div>
       <div class="data-team__container">
-        <div class="data-team__headings"><div class="team_info_number">#</div></div>
-        <div class="data-team__headings_name"><div class="team_info_name">Име</div></div>
-        <div class="data-team__headings"><div class="team_info_age">Години</div></div>
-        <div class="data-team__headings tshirt"><img src="../assets/tshirt.png"></div>
-        <div class="data-team__headings football-ball"><img src="../assets/football_ball.png"></div>
-        <div class="data-team__headings yellow"><div class="yellow-cards"></div></div>
-        <div class="data-team__headings red"><div class="red-cards"></div></div>
+        <div class="data-team__headings">
+          <div class="team_info_number">#</div>
+        </div>
+        <div class="data-team__headings_name">
+          <div class="team_info_name">Име</div>
+        </div>
+        <div class="data-team__headings">
+          <div class="team_info_age">Години</div>
+        </div>
+        <div class="data-team__headings tshirt">
+          <img src="../assets/tshirt.png" />
+        </div>
+        <div class="data-team__headings football-ball">
+          <img src="../assets/football_ball.png" />
+        </div>
+        <div class="data-team__headings yellow">
+          <div class="yellow-cards"></div>
+        </div>
+        <div class="data-team__headings red">
+          <div class="red-cards"></div>
+        </div>
       </div>
       <div id="v-for-object" class="demo">
         <div v-for="(value, position) in players" :key="position" class="data-team__info">
@@ -27,7 +49,7 @@
           <div class="data-player__position" v-else-if="position == 'Midfielders'">Халф</div>
           <div class="data-player__position" v-else>Нападател</div>
           <div v-for="(key, index) in value" :key="index" class="data-player__conteiner">
-            <div class="data-player__info" > {{ key.player_number !== '' ? key.player_number : "-"}}</div>
+            <div class="data-player__info">{{ key.player_number !== '' ? key.player_number : "-"}}</div>
             <div class="data-player__info_name">{{key.player_name}}</div>
             <div class="data-player__info">{{key.player_age}}</div>
             <div class="data-player__info">{{key.player_match_played}}</div>
@@ -46,9 +68,9 @@ export default {
     return {
       teamImage: [],
       teams: [],
-      headings: ['#', 'Име', 'Години', 'Мачове', 'Голове', 'Ж.К.', 'Ч.К.'],
+      headings: ["#", "Име", "Години", "Мачове", "Голове", "Ж.К.", "Ч.К."],
       players: [],
-      searchPlayer: '',
+      searchPlayer: "",
       id: this.$route.params.id
     };
   },
@@ -64,84 +86,96 @@ export default {
       return result;
     }
   },
-
   computed: {
-    searchItem(){
-      return ""
+    filteredPlayers() {
+      let searchString = this.searchPlayer;
+      let findPlayers = this.teams.players;
+      /* eslint-disable */
+      if (findPlayers.length > 1) {
+        return findPlayers.filter(profile => {
+          return (
+            profile.player_name
+              .toLowerCase()
+              .indexOf(searchString.toLowerCase()) !== -1
+          );
+        });
+      }
+      return 0;
     }
   },
-  
   beforeCreate() {
     fetch(
-      "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id="+this.$route.params.id+"&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229" 
+      "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id=" +
+        this.$route.params.id +
+        "&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229"
     )
-    .then(response => response.json())
-    .then(data => {
-      /* eslint-disable */
-      var grouped = this.groupBy(data[0]["players"], "player_type");
-      this.players = grouped;
-      this.teams = data[0];
-      this.teamImage = data[0].team_badge
-    })
-    .then(() => this.$emit("ready"));
+      .then(response => response.json())
+      .then(data => {
+        /* eslint-disable */
+        var grouped = this.groupBy(data[0]["players"], "player_type");
+        this.players = grouped;
+        this.teams = data[0];
+        this.teamImage = data[0].team_badge;
+      })
+      .then(() => this.$emit("ready"));
   }
 };
 </script>
 
-<style scoped>
-.data-team__teamName{
-  width: auto;
-  height: 100px;
-  float: left;
-  justify-content: center;
-  margin-left:25px
-}
-.team_info_number{
-  position: relative;
-  bottom: 5px;
-}
-.team_info_age{
-  position: relative;
-  bottom: 5px;
-}
-.team_info_name{
-  position: relative;
-  bottom: 5px;
-}
-.search__team{
+<style>
+.search__team {
   width: 100%;
-  opacity: .64;
+  opacity: 0.64;
   border-radius: 10px;
   height: 30px;
   outline: none;
   border-color: rgba(0, 0, 0, 0.12);
   padding-left: 10px;
-  margin-top:10px;
+  margin-top:20px;
 }
-.data-team__teamLogo{
+.data-team__teamName {
+  width: auto;
+  height: 100px;
+  float: left;
+  justify-content: center;
+  margin-left: 25px;
+}
+.team_info_number {
+  position: relative;
+  bottom: 5px;
+}
+.team_info_age {
+  position: relative;
+  bottom: 5px;
+}
+.team_info_name {
+  position: relative;
+  bottom: 5px;
+}
+.data-team__teamLogo {
   width: 100px;
   height: 100px;
   background-repeat: no-repeat;
-  float:left; 
+  float: left;
 }
-.data-player__position{
+.data-player__position {
   padding: 5px;
   color: #656565;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
 }
-.data-player__conteiner{
+.data-player__conteiner {
   padding: 10px;
-  border-bottom: 2px solid #E7E7E7;
+  border-bottom: 2px solid #e7e7e7;
 }
 .red {
   position: relative;
   bottom: 6px;
 }
-.tshirt{
+.tshirt {
   position: relative;
   bottom: 10px;
 }
-.red-cards{
+.red-cards {
   background-color: red;
   height: 24px;
   width: 16px;
@@ -156,7 +190,7 @@ export default {
   position: relative;
   bottom: 6px;
 }
-.yellow-cards{
+.yellow-cards {
   background-color: #ffeb3b;
   height: 24px;
   width: 16px;
@@ -167,14 +201,14 @@ export default {
   position: relative;
   right: 5px;
 }
-.data-team__teamText{
+.data-team__teamText {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   color: #656565;
   font: normal bold 18px Arial, Helvetica, sans-serif;
 }
-.data-team__info{
+.data-team__info {
   text-align: left;
   border-bottom: 2px solid #ddd;
   position: relative;
@@ -182,13 +216,13 @@ export default {
   height: 100%;
 }
 .data-player__conteiner:hover {
-    background: rgba(0, 0, 0, 0.03);
+  background: rgba(0, 0, 0, 0.03);
 }
-.football-ball{
+.football-ball {
   position: relative;
   bottom: 10px;
 }
-.data-team__headings{
+.data-team__headings {
   text-align: left;
   width: 10%;
   float: left;
@@ -196,28 +230,28 @@ export default {
   border-bottom: 2px solid #ddd;
   text-align: center;
 }
-.data-team__headings_name{
+.data-team__headings_name {
   text-align: left;
   width: 40%;
   font-weight: bold;
   float: left;
   border-bottom: 2px solid #ddd;
 }
-.data-player__info{
-    text-align: left;
-    width: 10%;
-    float: left;
-    text-align: center;
+.data-player__info {
+  text-align: left;
+  width: 10%;
+  float: left;
+  text-align: center;
 }
-.data-player__info_name{
-    text-align: left;
-    width: 40%;
-    float: left;
+.data-player__info_name {
+  text-align: left;
+  width: 40%;
+  float: left;
 }
-.data-team__container{
+.data-team__container {
   width: 100%;
   display: inline-block;
-  margin-top:20px;
+  margin-top: 20px;
   position: relative;
   top: 14px;
 }

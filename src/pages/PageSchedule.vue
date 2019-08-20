@@ -11,9 +11,6 @@
         </li>
       </ul>
     </div>
-    <div>
-      <input type='search' class="search__team" placeholder="Търсене на отбор" v-model="searchItem">
-    </div>
     <ScheduleList :schedules="forthcomingMatches" v-if="!showFinishedMatches" />
     <ScheduleList class="schedule-finished" :schedules="finishedMatches" v-else />
   </div>

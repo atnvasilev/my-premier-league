@@ -3,15 +3,23 @@
     <header class="header">
       <div class="header__block container container--max-width">
         <router-link :to="{name: 'Schedule'}" class="header__logo">
-            <img src="../assets/pl-icon2.png" class="header__img" alt="Premier League" />
+          <img src="../assets/pl-icon2.png" class="header__img" alt="Premier League" />
         </router-link>
 
         <nav class="nav">
           <ul class="nav__list">
-            <li class="nav__list-item">
-                <router-link class="router-link-active" :to="{name: 'Schedule'}">Мачове</router-link>
-                <router-link class="router-link-active" :to="{name: 'Standings'}">Класация</router-link>
-                <router-link class="router-link-active" :to="{name: 'Login'}">Изход</router-link>
+            <li class="nav__list-item" v-if="!user">
+              <router-link class="router-link-active" :to="{name: 'Login'}">Логин</router-link>
+              <router-link class="router-link-active" :to="{name: 'Register'}">Регистрация</router-link>
+            </li>
+            <li class="nav__list-item" v-else>
+              <router-link class="router-link-active" :to="{name: 'Schedule'}">Мачове</router-link>
+              <router-link class="router-link-active" :to="{name: 'Standings'}">Класация</router-link>
+              <a
+                class="router-link-active"
+                @click.prevent="logout"
+                href="#"
+              >Изход</a>
             </li>
           </ul>
         </nav>
@@ -22,11 +30,23 @@
 
 <script>
 export default {
-  name: "navigation"
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+      .then(() => {
+        this.$router.push("/login");
+      })
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.authUser;
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 .header {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -104,14 +124,14 @@ export default {
   align-content: center;
 }
 
-.router-link-active{
+.router-link-active {
   text-decoration: none;
   color: #3498db;
   text-transform: uppercase;
-  margin-left:24px;
+  margin-left: 24px;
 }
 
-.router-link-exact-active{
+.router-link-exact-active {
   border-bottom: 1px solid;
 }
 </style>
