@@ -9,7 +9,6 @@
             tag="div"
             class="schedule__day-matches"
         >
-        <!-- <div class="schedule__day-matches"> -->
           <div class="schedule__day-match">
             <span>{{el.match_hometeam_name}}</span>
             <span class="schedule__result-score home__team-score">
@@ -22,7 +21,6 @@
             </span>
             <span class="schedyle__result-away">{{el.match_awayteam_name}}</span>
           </div>
-        <!-- </div> -->
         </router-link>
       </div>
     </div>
@@ -37,6 +35,7 @@ export default {
       required: true
     }
   }
+  
 };
 </script>
 
@@ -44,7 +43,15 @@ export default {
 .home__team-score{
   margin-left: 5px;
 }
-
+.search__team{
+  width: 100%;
+  opacity: .64;
+  border-radius: 10px;
+  height: 30px;
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.12);
+  padding-left: 10px;
+}
 .schedule__day-match {
   display: inline-block;
   text-align: right;

@@ -3,18 +3,17 @@
 		
 		<div class="login">
 
-			<form class="form">
-				
+			<form class="form" @submit.prevent="register">
 				
 				<label class="form-row">
 					<div class="form-input">
-						<input  placeholder="E-mail" type="text" name="email">
+						<input  placeholder="E-mail" type="text" v-model="form.email">
 					</div>
 				</label>
 
 				<label class="form-row" style="display:block;margin-top:12px;">
 					<div class="form-input">
-						<input placeholder="Парола" type="password" name="password">
+						<input placeholder="Парола" type="password" v-model="form.password">
 					</div>
 				</label>
 
@@ -23,8 +22,8 @@
 				</div>
 
 				<div class="form-row form-row--actions" style="display:block;margin-top:12px;">
-					<button>
-						Вход
+					<button >
+						Регистрация
 					</button>
 				</div>
 			</form>
@@ -36,7 +35,24 @@
 <script>
  
 export default {
-    name: 'login-page',
+	data() {
+		return {
+			form: {
+				email: null,
+				password: null
+			}
+		}
+	},
+	methods: {
+		register(){
+			//call store -> action from dispatch
+			this.$store.dispatch("registerUserWithEmailAndPassword", this.form)
+			.then(() => {
+				this.$router.push({name: 'Home'})
+			})
+			.catch(error => alert(error.message))
+		}
+	},
     created(){
 		this.$emit('ready')
 	}

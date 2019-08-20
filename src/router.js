@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Schedule from "./pages/PageSchedule";
 import Login from "./pages/PageLogin";
+import Register from "./pages/PageRegister";
 import Standings from "./pages/PageStandings";
 import Team from "./pages/PageTeam";
 import Statistics from "./pages/PageMatchStatistics";
@@ -29,6 +30,11 @@ const router = new Router({
       path: "/login",
       name: "Login",
       component: Login
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: Register
     },
     {
       path: "/team/:id",

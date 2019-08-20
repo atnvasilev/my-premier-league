@@ -7,6 +7,10 @@
           <div class="data-team__teamText">{{teams.team_name}}</div>
         </div>
       </div>
+
+
+      <input type='search' class="search__team" placeholder="Търсене на отбор" v-model="searchItem">
+      
       <div class="data-team__container">
         <div class="data-team__headings"><div class="team_info_number">#</div></div>
         <div class="data-team__headings_name"><div class="team_info_name">Име</div></div>
@@ -60,6 +64,13 @@ export default {
       return result;
     }
   },
+
+  computed: {
+    searchItem(){
+      return ""
+    }
+  },
+  
   beforeCreate() {
     fetch(
       "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id="+this.$route.params.id+"&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229" 
@@ -72,10 +83,7 @@ export default {
       this.teams = data[0];
       this.teamImage = data[0].team_badge
     })
-      
-  },
-  created() {
-    this.$emit("ready");
+    .then(() => this.$emit("ready"));
   }
 };
 </script>
@@ -99,6 +107,16 @@ export default {
 .team_info_name{
   position: relative;
   bottom: 5px;
+}
+.search__team{
+  width: 100%;
+  opacity: .64;
+  border-radius: 10px;
+  height: 30px;
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.12);
+  padding-left: 10px;
+  margin-top:10px;
 }
 .data-team__teamLogo{
   width: 100px;

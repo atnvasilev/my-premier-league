@@ -11,9 +11,11 @@
         </li>
       </ul>
     </div>
-
+    <div>
+      <input type='search' class="search__team" placeholder="Търсене на отбор" v-model="searchItem">
+    </div>
     <ScheduleList :schedules="forthcomingMatches" v-if="!showFinishedMatches" />
-    <ScheduleList :schedules="finishedMatches" v-else />
+    <ScheduleList class="schedule-finished" :schedules="finishedMatches" v-else />
   </div>
 </template>
 
@@ -28,7 +30,9 @@ export default {
       matches: [],
       teams: [],
       showFinishedMatches: false,
-      active_el: 1
+      active_el: 1,
+      searchItem: "",
+      result: []
     };
   },
   methods: {
@@ -44,22 +48,27 @@ export default {
     },
     activate:function(el){
         this.active_el = el;
-    },
+    }
   },
   computed: {
+
     finishedMatches() {
       let finished = this.matches.filter(item => {
         return item.match_status === "Finished";
       });
+    
       return this.groupBy(finished, "match_date");
     },
+
     forthcomingMatches() {
       let forthcoming = this.matches.filter(item => {
         return item.match_status !== "Finished";
       });
-
       return this.groupBy(forthcoming, "match_date");
-    }
+    },
+    // searchTeam() {
+    //   return;
+    // }
   },
   beforeCreate() {
     fetch(
@@ -105,7 +114,9 @@ export default {
   color: #3498db;
   cursor: pointer;
 }
-
+.schedule-finished{
+  cursor: pointer;
+}
 .radio-list__item + .radio-list__item {
   border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
