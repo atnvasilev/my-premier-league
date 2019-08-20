@@ -1,24 +1,29 @@
 <template>
     <div class="main_statistics_container">
+        <div class="radio-list_back__button">
+            <router-link :to="{name: 'Schedule'}">
+                <ul class="radio-list__back">
+                    <li class="radio-list__item active" >
+                        <a  class="radio-list__link_back">Назад</a>
+                    </li>
+                </ul>
+            </router-link>
+        </div>
         <div class="data-statistics__container" v-for="(value, index) in data" :key="index">
             <div class="data-statistics__home">{{value["home"]}}</div>
             <div class="data-statistics__type">{{value["type"]}}</div>
             <div class="data-statistics__away">{{value["away"]}}</div>
-            <div>
-                <div class="team__stats">
-                    <div class="home-team__stats" >
-                    </div>
-                </div>
-                <div class="team__stats">
-                    <div class="away-team__stats">
-                    </div>
-                </div>
-            </div>
+
+            <TeamStats :HomeStatistics="value['home']" :AwayStatistics="value['away']" />
         </div>
     </div>
 </template>
 <script>
+import TeamStats from "@/components/TeamStats";
 export default {
+    components: {
+        TeamStats
+    },
     data(){
         return {
             data: []
@@ -37,9 +42,16 @@ export default {
         return result;
         }
     },
-
-    created() {
-        this.$emit("ready");
+    computed: {
+        setHomeWidth(){
+            var self = this.data;
+            if(self.length > 0 ){
+                for(var i = 0; i< self.length; i++){
+                    return self[i]
+                }
+            }
+            return 0;
+        }
     },
 
     beforeCreate() {
@@ -51,27 +63,34 @@ export default {
             /* eslint-disable */
             this.data = data[this.$route.params.id]["statistics"];  
         })
+        .then(this.$emit("ready"));
     }
 }
 </script>
+
 <style scoped>
-.team__stats{
-    display: inline-block;
-    width: 210px;
-    background-color: #ddd;
+.radio-list__back{
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    display: -webkit-inline-box;
+    margin: auto;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 30px;
     overflow: hidden;
-    border-radius: 10px;
-    height: 9px;
+    background: #fff;
 }
-.home-team__stats {
-    background-color: #CA0000;
-    height: 9px;
-    float:right;
+.radio-list__link_back{
+    text-transform: uppercase;
+    text-decoration: none;
+    display: block;
+    padding: 12px 50px;
+    color: #ffffff;
+    cursor: pointer;
 }
-.away-team__stats{
-    background-color: #CA0000;
-    height: 9px;
-    float:left;
+.radio-list_back__button{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .main_statistics_container{
     margin-top:20px;
