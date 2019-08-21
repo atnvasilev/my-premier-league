@@ -42,17 +42,6 @@ export default {
         return result;
         }
     },
-    computed: {
-        setHomeWidth(){
-            var self = this.data;
-            if(self.length > 0 ){
-                for(var i = 0; i< self.length; i++){
-                    return self[i]
-                }
-            }
-            return 0;
-        }
-    },
 
     beforeCreate() {
         fetch(

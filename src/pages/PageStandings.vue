@@ -4,21 +4,7 @@
       <table class="data-table">
         <thead>
           <tr>
-            <th class="ranking-head">#</th>
-
-            <th class="ranking-head">Отбор</th>
-
-            <th class="ranking-head">М</th>
-
-            <th class="ranking-head">П</th>
-
-            <th class="ranking-head">Р</th>
-
-            <th class="ranking-head">З</th>
-
-            <th class="ranking-head">В/Г</th>
-            <th class="ranking-head">Д/Г</th>
-            <th class="ranking-head">Точки</th>
+            <th class="ranking-head" v-for="(value,index) in headings" :key="index">{{value}}</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +54,8 @@ export default {
   name: "standing",
   data() {
     return {
-      data: []
+      data: [],
+      headings: ["#", "Отбор", "М", "П", "Р", "З", "В/Г", "Д/Г", "Точки"]
     };
   },
   beforeCreate() {

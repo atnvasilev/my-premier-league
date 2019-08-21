@@ -17,60 +17,27 @@
           placeholder="Търсене на отбор"
           v-model="searchPlayer"
         />
-        <!-- <div>{{filteredPlayers}}</div> -->
-      </div>
-      <div class="data-team__container">
-        <div class="data-team__headings">
-          <div class="team_info_number">#</div>
-        </div>
-        <div class="data-team__headings_name">
-          <div class="team_info_name">Име</div>
-        </div>
-        <div class="data-team__headings">
-          <div class="team_info_age">Години</div>
-        </div>
-        <div class="data-team__headings tshirt">
-          <img src="../assets/tshirt.png" />
-        </div>
-        <div class="data-team__headings football-ball">
-          <img src="../assets/football_ball.png" />
-        </div>
-        <div class="data-team__headings yellow">
-          <div class="yellow-cards"></div>
-        </div>
-        <div class="data-team__headings red">
-          <div class="red-cards"></div>
-        </div>
-      </div>
-      <div id="v-for-object" class="demo">
-        <div v-for="(value, position) in players" :key="position" class="data-team__info">
-          <div class="data-player__position" v-if="position == 'Goalkeepers'">Вратар</div>
-          <div class="data-player__position" v-else-if="position == 'Defenders'">Защитниц</div>
-          <div class="data-player__position" v-else-if="position == 'Midfielders'">Халф</div>
-          <div class="data-player__position" v-else>Нападател</div>
-          <div v-for="(key, index) in value" :key="index" class="data-player__conteiner">
-            <div class="data-player__info">{{ key.player_number !== '' ? key.player_number : "-"}}</div>
-            <div class="data-player__info_name">{{key.player_name}}</div>
-            <div class="data-player__info">{{key.player_age}}</div>
-            <div class="data-player__info">{{key.player_match_played}}</div>
-            <div class="data-player__info">{{key.player_goals}}</div>
-            <div class="data-player__info">{{key.player_yellow_cards}}</div>
-            <div class="data-player__info">{{key.player_red_cards}}</div>
-          </div>
-        </div>
+        <SearchPlayers :players="filteredPlayers" v-if="showSearch" />
+        <PlayersInformation :AllPlayers="players" v-else />
       </div>
     </div>
   </div>
 </template>
 <script>
+import SearchPlayers from "@/components/SearchPlayers"
+import PlayersInformation from "@/components/PlayersInformation"
 export default {
+  components: {
+    SearchPlayers,
+    PlayersInformation
+  },
   data() {
     return {
       teamImage: [],
       teams: [],
-      headings: ["#", "Име", "Години", "Мачове", "Голове", "Ж.К.", "Ч.К."],
       players: [],
       searchPlayer: "",
+      showSearch: false,
       id: this.$route.params.id
     };
   },
@@ -91,14 +58,17 @@ export default {
       let searchString = this.searchPlayer;
       let findPlayers = this.teams.players;
       /* eslint-disable */
-      if (findPlayers.length > 1) {
-        return findPlayers.filter(profile => {
-          return (
-            profile.player_name
-              .toLowerCase()
-              .indexOf(searchString.toLowerCase()) !== -1
-          );
-        });
+      if (findPlayers !== 'undefined') {
+        if (findPlayers.length > 1) {
+          this.showSearch = true;
+          return findPlayers.filter(profile => {
+            return (
+              profile.player_name
+                .toLowerCase()
+                .indexOf(searchString.toLowerCase()) !== -1
+            );
+          });
+        }
       }
       return 0;
     }
