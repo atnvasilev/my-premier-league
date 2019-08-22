@@ -12,12 +12,12 @@
           <div class="schedule__day-match">
             <span>{{el.match_hometeam_name}}</span>
             <span class="schedule__result-score home__team-score">
-              {{ el.match_hometeam_score !== '' ? el.match_hometeam_score : 0}} 
+              {{ el.match_hometeam_score !== '' ? el.match_hometeam_score : "-"}} 
               </span>
           </div>
           <div class="schedule__day-match-away">
             <span class="schedule__result-score"> 
-              {{ el.match_awayteam_score !== '' ? el.match_awayteam_score : 0}}
+              {{ el.match_awayteam_score !== '' ? el.match_awayteam_score : "-"}}
             </span>
             <span class="schedyle__result-away">{{el.match_awayteam_name}}</span>
           </div>

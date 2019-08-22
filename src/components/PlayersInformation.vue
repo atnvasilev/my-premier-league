@@ -47,7 +47,6 @@
 export default {
   props: {
     AllPlayers: {
-      type: Object,
       required: true
     }
   }

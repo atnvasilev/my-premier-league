@@ -17,7 +17,7 @@
         <div class="form-row form-row--errors"></div>
 
         <div class="form-row form-row--actions" style="display:block;margin-top:12px;">
-          <button>Регистрация</button>
+          <button style="background:#3498db;">Регистрация</button>
         </div>
       </form>
     </div>

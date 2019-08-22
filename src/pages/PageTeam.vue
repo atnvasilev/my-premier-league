@@ -14,10 +14,11 @@
         <input
           type="search"
           class="search__team"
-          placeholder="Търсене на отбор"
+          placeholder="Търсене на играч"
           v-model="searchPlayer"
+          @click="showSearch = true"
         />
-        <SearchPlayers :players="filteredPlayers" v-if="showSearch" />
+        <SearchPlayers :players="filteredPlayers"  v-if="showSearch" />
         <PlayersInformation :AllPlayers="players" v-else />
       </div>
     </div>
@@ -55,12 +56,12 @@ export default {
   },
   computed: {
     filteredPlayers() {
+
       let searchString = this.searchPlayer;
       let findPlayers = this.teams.players;
       /* eslint-disable */
       if (findPlayers !== 'undefined') {
         if (findPlayers.length > 1) {
-          this.showSearch = true;
           return findPlayers.filter(profile => {
             return (
               profile.player_name
@@ -77,7 +78,7 @@ export default {
     fetch(
       "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id=" +
         this.$route.params.id +
-        "&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229"
+        "&APIkey=4249dfa7aa1cc4e4487d0f72f1c6f4fdd0315403834e0bfacf8078599a2a20ff"
     )
       .then(response => response.json())
       .then(data => {

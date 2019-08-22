@@ -9,6 +9,15 @@
                 </ul>
             </router-link>
         </div>
+        <div class="data-statistics__matchTime">
+            <span>{{getTeams.match_date}}</span>
+            <div class="data-statistics__teams_result">
+                <div class="data-statistics__team__name">{{getTeams.match_hometeam_name}}</div>
+                <span class="data-statistics_team_score homeScore">{{getTeams.match_hometeam_score !== '' ? getTeams.match_hometeam_score : "-"}}</span>- 
+                <span class="data-statistics_team_score awayScore">{{getTeams.match_awayteam_score !== '' ? getTeams.match_awayteam_score : "-"}}</span>
+                <div class="data-statistics__team__name">{{getTeams.match_awayteam_name}}</div>
+            </div>
+        </div>
         <div class="data-statistics__container" v-for="(value, index) in data" :key="index">
             <div class="data-statistics__home">{{value["home"]}}</div>
             <div class="data-statistics__type">{{value["type"]}}</div>
@@ -26,7 +35,9 @@ export default {
     },
     data(){
         return {
-            data: []
+            data: [],
+            allEvents: [],
+            matchId: null
         };
     },
 
@@ -43,21 +54,84 @@ export default {
         }
     },
 
+    computed:{
+        getTeams(){
+            let allEvents = this.allEvents;
+            let currentMatchID = this.matchId;
+            for(var i = 0; i < allEvents.length; i++){
+                if(allEvents[i]["match_id"] == currentMatchID){
+                    return allEvents[i];   
+                }
+            }
+            return "";
+        }
+    },
+
     beforeCreate() {
         fetch(
-        "https://apiv2.apifootball.com/?action=get_statistics&match_id="+this.$route.params.id+"&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229" 
+            "https://apiv2.apifootball.com/?action=get_events&from=2019-08-09&to=2019-12-31&league_id=148&APIkey=4249dfa7aa1cc4e4487d0f72f1c6f4fdd0315403834e0bfacf8078599a2a20ff" 
         )
         .then(response => response.json())
         .then(data => {
             /* eslint-disable */
-            this.data = data[this.$route.params.id]["statistics"];  
+            this.allEvents = data
         })
-        .then(this.$emit("ready"));
+        .then(
+            fetch(
+                "https://apiv2.apifootball.com/?action=get_statistics&match_id="+this.$route.params.id+"&APIkey=4249dfa7aa1cc4e4487d0f72f1c6f4fdd0315403834e0bfacf8078599a2a20ff" 
+            )
+            .then(response => response.json())
+            .then(data => {
+                /* eslint-disable */
+                this.data = data[this.$route.params.id]["statistics"];
+                this.matchId = this.$route.params.id  
+            })
+        ).then(this.$emit("ready"))
     }
 }
 </script>
 
 <style scoped>
+.data-statistics__matchTime{
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    border-bottom: 2px solid rgba(0,0,0,.12);
+    opacity: .75;
+    padding: 10px 0px 10px 0px;
+}
+.data-statistics__teams_result{
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+.data-statistics_team_score{
+    font-weight: 700;
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 100%;
+    background: #3498db;
+    color: #fff;
+}
+.homeScore{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.awayScore{
+    margin-right: 5px;
+}
+.data-statistics__team__name{
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: inline;
+    position: relative; 
+}
 .radio-list__back{
     padding: 0;
     list-style: none;

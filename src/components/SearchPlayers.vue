@@ -45,7 +45,6 @@
 export default {
   props: {
     Players: {
-      type: Array,
       required: true
     }
   },
