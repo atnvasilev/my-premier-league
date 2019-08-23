@@ -18,39 +18,53 @@
                 <div class="data-statistics__team__name">{{getTeams.match_awayteam_name}}</div>
             </div>
         </div>
-        <div class="data-statistics__container" v-for="(value, index) in data" :key="index">
-            <div class="data-statistics__home">{{value["home"]}}</div>
-            <div class="data-statistics__type">{{value["type"]}}</div>
-            <div class="data-statistics__away">{{value["away"]}}</div>
-
-            <TeamStats :HomeStatistics="value['home']" :AwayStatistics="value['away']" />
+        <div class="filters data-statistics-filters">
+            <ul class="radio-list data-statistics-radio-list">
+                <li @click="activate(1)" class="radio-list__item data-statistics-lineup"  :class="{active:active_el == 1}">
+                    <a @click="showStatistics = true" class="radio-list__link data-statistics-menu" style="">Статистика</a>
+                </li>
+                <li @click="activate(2)" class="radio-list__item data-statistics-lineup" :class="{active:active_el == 2}">
+                    <a  @click="showStatistics = false" class="radio-list__link data-statistics-menu">Състави</a>
+                </li>
+            </ul>
         </div>
+
+        <MatchStats :Statistics="data" v-if="showStatistics" />
+        <MatchLineup :MatchInfo="getTeams" :currentMatch="this.matchId" v-else />
+   
     </div>
 </template>
 <script>
-import TeamStats from "@/components/TeamStats";
+import MatchLineup from "@/components/MatchLineup";
+import MatchStats from "@/components/MatchStats";
 export default {
     components: {
-        TeamStats
+        MatchLineup,
+        MatchStats
     },
     data(){
         return {
             data: [],
             allEvents: [],
-            matchId: null
+            matchId: null,
+            active_el: 1,
+            showStatistics: true
         };
     },
 
     methods: {
         groupBy(array, key) {
-        const result = {};
-        array.forEach(item => {
-            if (!result[item[key]]) {
-            result[item[key]] = [];
-            }
-            result[item[key]].push(item);
-        });
-        return result;
+            const result = {};
+            array.forEach(item => {
+                if (!result[item[key]]) {
+                result[item[key]] = [];
+                }
+                result[item[key]].push(item);
+            });
+            return result;
+        },
+        activate:function(el){
+            this.active_el = el;
         }
     },
 
@@ -58,9 +72,11 @@ export default {
         getTeams(){
             let allEvents = this.allEvents;
             let currentMatchID = this.matchId;
+            let currentData = [];
             for(var i = 0; i < allEvents.length; i++){
                 if(allEvents[i]["match_id"] == currentMatchID){
-                    return allEvents[i];   
+                    currentData = allEvents[i];
+                    return currentData;
                 }
             }
             return "";
@@ -91,7 +107,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .data-statistics__matchTime{
     display: inline-block;
     width: 100%;
@@ -101,10 +117,26 @@ export default {
     opacity: .75;
     padding: 10px 0px 10px 0px;
 }
+.data-statistics-radio-list{
+    border-radius: 0;
+    width: 100%;
+}
 .data-statistics__teams_result{
     width: 500px;
     margin: 0 auto;
     text-align: center;
+}
+.data-statistics-filters{
+    width: 500px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.data-statistics-lineup{
+    width:250px;
+}
+.data-statistics-menu{
+    padding: 5px;
 }
 .data-statistics_team_score{
     font-weight: 700;
