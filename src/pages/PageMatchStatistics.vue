@@ -29,18 +29,20 @@
             </ul>
         </div>
 
-        <MatchStats :Statistics="data" v-if="showStatistics" />
-        <MatchLineup :MatchInfo="getTeams" :currentMatch="this.matchId" v-else />
-   
+        <MatchStats :Statistics="data" v-if="showStatistics && data.length > 0" />
+        <MatchLineup :MatchInfo="getTeams" :currentMatch="this.matchId" v-else-if="data.length > 0" />
+        <MatchNotStarted v-else />
     </div>
 </template>
 <script>
 import MatchLineup from "@/components/MatchLineup";
 import MatchStats from "@/components/MatchStats";
+import MatchNotStarted from "@/components/MatchNotStarted";
 export default {
     components: {
         MatchLineup,
-        MatchStats
+        MatchStats,
+        MatchNotStarted
     },
     data(){
         return {

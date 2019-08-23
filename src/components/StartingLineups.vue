@@ -16,15 +16,14 @@
                 <tr v-for="(el, index) in awayTeam" :key="index">
                     <td class="data-statistics-lineup__away_players">
                         <span style="float:right;">{{el.lineup_number}}</span>
-                        <span>.{{el.lineup_player}}</span>
-                        <div v-for="(key, index) in cards" :key="index">
+                        <span>{{el.lineup_player}}</span>
+                        <!-- <div v-for="(key, index) in cards" :key="index">
                             <span v-if="el.lineup_player == key.away_fault">card</span>
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div>{{cards}}</div>
     </div>
 </template>
 

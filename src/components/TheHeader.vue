@@ -14,7 +14,7 @@
             </li>
             <li class="nav__list-item" v-else>
               <router-link class="router-link-active" :to="{name: 'Schedule'}">Мачове</router-link>
-              <router-link class="router-link-active" :to="{name: 'Standings'}">Класация</router-link>
+              <router-link class="router-link-active" :to="{name: 'Standings'}">Класиране</router-link>
               <a
                 class="router-link-active"
                 @click.prevent="logout"
