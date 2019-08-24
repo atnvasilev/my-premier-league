@@ -6,21 +6,21 @@
     <div class="login">
       <form class="form" @click.prevent="login">
         <label class="form-row">
-          <div class="form-input">
+          <div class="form-input" :class="{ 'hasError': $v.form.email.$error }">
             <input placeholder="E-mail" type="text" v-model="form.email" />
           </div>
         </label>
 
         <label class="form-row" style="display:block;margin-top:12px;">
-          <div class="form-input">
+          <div class="form-input" :class="{ 'hasError': $v.form.password.$error }">
             <input placeholder="Парола" type="password" v-model="form.password" />
           </div>
         </label>
 
-        <div class="form-row form-row--errors" v-if="error">{{ error }}</div>
+        <div class="form-row form-row--errors" v-if="error && isSubmitted">{{ error }}</div>
 
         <div class="form-row form-row--actions" style="display:block;margin-top:12px;">
-          <button type="submit">Вход</button>
+          <button type="submit" @click="isSubmitted = true">Вход</button>
         </div>
       </form>
     </div>
@@ -28,18 +28,27 @@
 </template>
 
 <script>
+import { required, minLength, email } from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
       form: {
-        email: null,
-        password: null
+        email: "",
+        password: ""
       },
-      error: ""
+      error: "",
+      isSubmitted: false
     };
+  },
+  validations: {
+    form: {
+      password: { required, min: minLength(6) },
+      email: { required, email }
+    }
   },
   methods: {
     login() {
+      // this.$v.form.$touch();
       this.$store
         .dispatch("signInWithEmailAndPassword", this.form)
         .then(() => {

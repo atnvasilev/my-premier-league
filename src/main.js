@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from '@/store'
 import firebase from 'firebase/app'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 const firebaseConfig = {
   apiKey: "AIzaSyCuCDIRL2e-zL9Q7AGwrhrMQa7ynqOs0MY",

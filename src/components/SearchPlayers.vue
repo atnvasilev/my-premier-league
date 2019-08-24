@@ -23,7 +23,10 @@
           <div class="red-cards"></div>
         </div>
     </div>
-     <div v-for="(value, position) in playersResult" :key="position" class="data-team__info">
+    <div v-if="Object.keys(playersResult).length == 0" class="data-player__No-data">
+      <div class="data-player_not-foundPlayer">Няма намерен играч</div>
+    </div>
+    <div v-else v-for="(value, position) in playersResult" :key="position" class="data-team__info">
           <div class="data-player__position" v-if="position == 'Goalkeepers'">Вратар</div>
           <div class="data-player__position" v-else-if="position == 'Defenders'">Защитник</div>
           <div class="data-player__position" v-else-if="position == 'Midfielders'">Халф</div>
@@ -71,7 +74,14 @@ export default {
 };
 </script>
 <style scoped>
-
-
+.data-player__No-data{
+    height: 50px;
+    border: 1px solid #cecece;
+    border-top: 0px;
+    background-color: #f5f5f5;
+}
+.data-player_not-foundPlayer{
+  padding-top:15px;  
+}
 </style>
 

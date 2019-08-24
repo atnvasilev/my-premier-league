@@ -165,5 +165,6 @@ export default {
   text-align: center;
   vertical-align: middle;
   margin: 0 auto;
+  position: relative;
 }
 </style>
