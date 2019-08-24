@@ -4,20 +4,26 @@
     <div style="padding:20px;"><iframe width="560" height="315" src="https://www.youtube.com/embed/Q41rz-_ajuo?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
     <div class="login">
-      <form class="form" @click.prevent="login">
+      <form class="form" @submit.prevent="login">
         <label class="form-row">
-          <div class="form-input" :class="{ 'hasError': $v.form.email.$error }">
-            <input placeholder="E-mail" type="text" v-model="form.email" />
+          <div class="form-input" >
+            <input placeholder="E-mail" type="text" v-model="form.email" :class="{ 'hasError': $v.form.email.$error }"/>
           </div>
         </label>
 
         <label class="form-row" style="display:block;margin-top:12px;">
-          <div class="form-input" :class="{ 'hasError': $v.form.password.$error }">
-            <input placeholder="Парола" type="password" v-model="form.password" />
+          <div class="form-input" >
+            <input placeholder="Парола" type="password" v-model="form.password"  :class="{ 'hasError': $v.form.password.$error }"/>
           </div>
         </label>
 
-        <div class="form-row form-row--errors" v-if="error && isSubmitted">{{ error }}</div>
+        <div class="form-row form-row--errors" style="color:red;margin:10px;" v-if="error && isSubmitted">{{ error }}</div>
+
+        <div>
+          <div class="error" v-if="$v.form.email.$error">Въведете коректен имейл.</div>
+          <div class="error" v-if="!$v.form.password.min">Паролата трябва да е минимум {{$v.form.password.$params.min.min}} символа.</div>
+          <div class="error" v-if="$v.form.password.$error">Моля въведете коректна парола</div>
+        </div>    
 
         <div class="form-row form-row--actions" style="display:block;margin-top:12px;">
           <button type="submit" @click="isSubmitted = true">Вход</button>
@@ -48,7 +54,12 @@ export default {
   },
   methods: {
     login() {
-      // this.$v.form.$touch();
+      this.$v.$touch()
+      this.isSubmitted = true
+      
+      if (this.$v.$invalid) {
+        return
+      }
       this.$store
         .dispatch("signInWithEmailAndPassword", this.form)
         .then(() => {
@@ -72,7 +83,13 @@ export default {
   max-width: 360px;
   margin: auto;
 }
-
+.hasError{
+  border-color:red
+}
+.error{
+  color:red;
+  margin:10px;
+}
 .login-page .nav {
   display: none;
 }
