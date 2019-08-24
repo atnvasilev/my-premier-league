@@ -193,11 +193,9 @@ export default {
     margin-top:20px;
 }
 .data-statistics__home{
-    display: inline-block;
     float: left;
 }
 .data-statistics__away{
-    display: inline-block;
     float: right;
 }
 .data-statistics__type{

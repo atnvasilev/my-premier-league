@@ -52,7 +52,7 @@ export default {
 
     finishedMatches() {
       let finished = this.matches.filter(item => {
-        return item.match_status === "Finished";
+        return item.match_status === "Finished" && item.match_live !== "1";
       });
       finished = [...finished.reverse()]
       return this.groupBy(finished, "match_date");
@@ -60,8 +60,9 @@ export default {
 
     forthcomingMatches() {
       let forthcoming = this.matches.filter(item => {
-        return item.match_status !== "Finished";
+        return item.match_status !== "Finished" && item.match_live !== "1";
       });
+      
       return this.groupBy(forthcoming, "match_date");
     }
   },

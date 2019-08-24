@@ -13,7 +13,8 @@
               <router-link class="router-link-active" :to="{name: 'Register'}">Регистрация</router-link>
             </li>
             <li class="nav__list-item" v-else>
-              <router-link class="router-link-active" :to="{name: 'Schedule'}">Мачове</router-link>
+              <router-link class="router-link-active" :to="{name: 'LiveMatches'}">Мачове на живо</router-link>
+              <router-link class="router-link-active" :to="{name: 'Schedule'}">Програма</router-link>
               <router-link class="router-link-active" :to="{name: 'Standings'}">Класиране</router-link>
               <a
                 class="router-link-active"

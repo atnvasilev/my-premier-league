@@ -1,10 +1,10 @@
 <template>
     <div class="data-statistics-lineup-container">
-        <!-- <div>{{MatchInfo}}</div> -->
         <StartingLineups 
             :homeTeam="MatchInfo['lineup']['home']['starting_lineups']" 
             :awayTeam="MatchInfo['lineup']['away']['starting_lineups']" 
-            :cards="MatchInfo['cards']" 
+            :homeSubstitutions="homeSubs"
+            :awaySubstitutions="awaySubs"
          />
         <Substitutes 
             :homeSubstitutes="MatchInfo['lineup']['home']['substitutes']" 
@@ -34,6 +34,30 @@ export default {
         currentMatch: {
             required: true
         },
+    },
+    computed:{
+        homeSubs(){
+            let subsPlayers = this.MatchInfo['substitutions']["home"];
+            let subs = [];
+            for(var key in subsPlayers){
+                subs.push({
+                    'out': subsPlayers[key]['substitution'].split(' | ')[0],
+                    'in': subsPlayers[key]['substitution'].split(' | ')[1]
+                })
+            }
+            return subs
+        },
+        awaySubs(){
+            let subsPlayers = this.MatchInfo['substitutions']["away"];
+            let subs = [];
+            for(var key in subsPlayers){
+                subs.push({
+                    'out': subsPlayers[key]['substitution'].split(' | ')[0],
+                    'in': subsPlayers[key]['substitution'].split(' | ')[1]
+                })
+            }
+            return subs
+        }
     }
 }
 </script>

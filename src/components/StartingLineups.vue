@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- <div>{{homeSubstitutions}}</div> -->
         <div class="data-statistics-lineup-text">Стартови състави</div>
         <table class="data-statistics-lineup__home-team">
             <tbody>
@@ -36,7 +37,12 @@ export default {
         awayTeam: {
             required: true
         },
-        cards: {
+        homeSubstitutions: {
+            type: Array,
+            required: true
+        },
+        awaySubstitutions: {
+            type: Array,
             required: true
         }
     }

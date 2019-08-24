@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <span>404</span>
-        <h1>Page not found</h1>
+    <div class="not__found"> 
+        <img src="../assets/404.png"  alt="error-404" />
+        <h1 class="page-not-found">Page not found</h1>
     </div>
 </template>
 <script>
@@ -12,5 +12,11 @@ export default {
 }
 </script>
 <style scoped>
-
+.not__found{
+    margin-top: 100px;
+}
+.page-not-found{
+    font-size: 50px;
+    font-family: cursive;
+}
 </style>

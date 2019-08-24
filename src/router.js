@@ -7,6 +7,7 @@ import Register from "./pages/PageRegister";
 import Standings from "./pages/PageStandings";
 import Team from "./pages/PageTeam";
 import Statistics from "./pages/PageMatchStatistics";
+import LiveMatches from "./pages/PageLiveMatches";
 import NotFound from "./pages/PageNotFound";
 Vue.use(Router);
 
@@ -28,6 +29,12 @@ const router = new Router({
       path: "/standings",
       name: "Standings",
       component: Standings,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/live",
+      name: "LiveMatches",
+      component: LiveMatches,
       meta: { requiresAuth: true }
     },
     {
