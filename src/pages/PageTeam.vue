@@ -56,7 +56,6 @@ export default {
   },
   computed: {
     filteredPlayers() {
-
       let searchString = this.searchPlayer;
       let findPlayers = this.teams.players;
       /* eslint-disable */
@@ -78,7 +77,7 @@ export default {
     fetch(
       "https://apiv2.apifootball.com/?action=get_teams&league_id=148&team_id=" +
         this.$route.params.id +
-        "&APIkey=4249dfa7aa1cc4e4487d0f72f1c6f4fdd0315403834e0bfacf8078599a2a20ff"
+        "&APIkey=af9f7e9633a5413ce6274758e12fb898d3a754e3ce715521418518d99febecf9"
     )
       .then(response => response.json())
       .then(data => {

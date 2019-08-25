@@ -60,7 +60,7 @@ export default {
   },
   beforeCreate() {
     fetch(
-      "https://apiv2.apifootball.com/?action=get_standings&league_id=148&APIkey=31a7e0331b21c7503f36bda060a2bbb7ba0ab942be56c276eb6015119b4c9229"
+      "https://apiv2.apifootball.com/?action=get_standings&league_id=148&APIkey=af9f7e9633a5413ce6274758e12fb898d3a754e3ce715521418518d99febecf9"
     )
       .then(response => response.json())
       .then(data => {

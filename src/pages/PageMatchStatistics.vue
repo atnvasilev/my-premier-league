@@ -87,7 +87,7 @@ export default {
 
     beforeCreate() {
         fetch(
-            "https://apiv2.apifootball.com/?action=get_events&from=2019-08-09&to=2019-12-31&league_id=148&APIkey=4249dfa7aa1cc4e4487d0f72f1c6f4fdd0315403834e0bfacf8078599a2a20ff" 
+            "https://apiv2.apifootball.com/?action=get_events&from=2019-08-09&to=2019-12-31&league_id=148&APIkey=af9f7e9633a5413ce6274758e12fb898d3a754e3ce715521418518d99febecf9" 
         )
         .then(response => response.json())
         .then(data => {
